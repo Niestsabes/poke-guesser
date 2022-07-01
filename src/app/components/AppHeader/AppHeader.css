@@ -1,0 +1,12 @@
+.App-header {
+    padding: 0.6rem 1.6rem;
+    width: 100%;
+    background-color: #282c34;
+    font-size: calc(1.62vmin);
+    display: flex;
+    justify-content: space-between;
+}
+
+.App-title {
+    margin: 0;
+}

@@ -1,0 +1,28 @@
+.Pokemon-panel {
+    background-color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 2rem;
+    height: 15rem;
+    min-height: 15rem;
+    width: 15rem;
+    min-width: 15rem;
+}
+
+.Pokemon-image {
+    min-width: 100%;
+    width: 100%;
+    min-height: 100%;
+    height: 100%;
+}
+
+.Pokemon-image.Mysterious {
+    filter: contrast(0) opacity(1) brightness(0);
+}
+
+.Pokemon-answer {
+    display: block;
+    margin: 0.305rem 0;
+    font-size: 1.62rem;
+    text-transform: uppercase;
+}

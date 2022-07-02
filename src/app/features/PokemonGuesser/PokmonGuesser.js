@@ -1,9 +1,10 @@
 import React from "react";
 import PokemonApi from '../../../api/pokemon.api';
-import RandomPokemon from "../../components/RandomPokemon/RandomPokemon";
-import Keyboard from "../../components/Keyboard/Keyboard";
+import PokemonRender from "../../components/PokemonRender/PokemonRender";
+import PlayerKeyboard from "../../components/PlayerKeyboard/PlayerKeyboard";
 import PlayerHealth from "../../components/PlayerHealth/PlayerHealth";
 import PokemonHealth from "../../components/PokemonHealth/PokemonHealth";
+import EndGuessModal from "../../components/EndGuessModal/EndGuessModal";
 
 /**
  * @class PokemonGuesser
@@ -33,10 +34,10 @@ export default class PokemonGuesser extends React.Component {
 
     render() {
         return <section className='d-flex flex-column align-items-center'>
-            <RandomPokemon
+            <PokemonRender
                 pokemon={this.state.currentPokemon}
                 isRevealed={this.state.isGuessWon || this.state.isGuessLost}>
-            </RandomPokemon>
+            </PokemonRender>
             <div className="w-100 d-flex justify-content-evenly">
                 <PlayerHealth
                     maxHealth={this.state.maxHealth}
@@ -49,11 +50,12 @@ export default class PokemonGuesser extends React.Component {
                     onDiscovered={this.handlePokemonDiscovered}>
                 </PokemonHealth>
             </div>
-            <Keyboard
+            <PlayerKeyboard
                 usedLetters={this.state.listSubmitLetter}
                 disabled={this.state.isGuessWon || this.state.isGuessLost}
                 onKeyPress={this.handleKeyPressed}>
-            </Keyboard>
+            </PlayerKeyboard>
+            {this.renderEndGameModal()}
         </section>
     }
     
@@ -70,6 +72,15 @@ export default class PokemonGuesser extends React.Component {
         this.pokeApi.getPokemon(pokeId).then( poke => {
             this.setState({ currentPokemon: poke });
         });
+    }
+
+    renderEndGameModal() {
+        if (this.state.isGuessLost || this.state.isGuessWon) {
+            return <EndGuessModal
+                pokemon={this.state.currentPokemon}
+                listLetter={this.state.listSubmitLetter}>
+            </EndGuessModal>
+        }
     }
 
     /**

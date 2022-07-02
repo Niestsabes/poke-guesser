@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?jbo59h');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?jbo59h#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?jbo59h') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?jbo59h') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?jbo59h##{$icomoon-font-family}') format('svg');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?mosfch');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?mosfch#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?mosfch') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?mosfch') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?mosfch##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,6 +27,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-share-nodes-solid {
+  &:before {
+    content: $icon-share-nodes-solid; 
+  }
+}
 .icon-heart-crack-solid {
   &:before {
     content: $icon-heart-crack-solid; 
@@ -40,16 +45,6 @@
 .icon-right-to-bracket-solid {
   &:before {
     content: $icon-right-to-bracket-solid; 
-  }
-}
-.icon-times-solid {
-  &:before {
-    content: $icon-times-solid; 
-  }
-}
-.icon-question-solid {
-  &:before {
-    content: $icon-question-solid; 
   }
 }
 .icon-delete-left-solid {
@@ -85,6 +80,21 @@
 .icon-search-solid {
   &:before {
     content: $icon-search-solid; 
+  }
+}
+.icon-question-solid {
+  &:before {
+    content: $icon-question-solid; 
+  }
+}
+.icon-times {
+  &:before {
+    content: $icon-times; 
+  }
+}
+.icon-check {
+  &:before {
+    content: $icon-check; 
   }
 }
 

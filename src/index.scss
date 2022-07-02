@@ -1,4 +1,5 @@
 @import './assets/styles/icomoon/style.scss';
+@import './assets/styles/bootstrap.scss';
 
 body {
   margin: 0;
@@ -13,3 +14,37 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+[class^="Button"] {
+  border: none;
+  border-radius: 0.5rem;
+  margin: 0 0.2rem;
+  font-size: 1rem;
+  color: white;
+  transition: 500ms;
+}
+
+.Button-primary {
+  background-color: #2056c1;
+  border-bottom: 0.2rem solid #0c3c84;
+  padding: 0.3rem 0.6rem;
+
+  &:hover {
+      background-color: lighten($color: #2056c1, $amount: 0.2);
+  }
+}
+
+.Button-icon, .btn-close {
+  background-color: #444850;
+  border-bottom: 0.2rem solid #161a20;
+  padding: 0.2rem;
+  height: 2.2rem;
+  width: 2.2rem;
+
+  &:hover {
+      background-color: lighten($color: #6c7381, $amount: 0.2);
+  }
+}
+
+.text-danger { color: #ce3232; }
+.text-success { color: #1bae4e; }

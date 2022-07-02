@@ -1,8 +1,8 @@
 import classNames from "classnames";
 import React from "react";
-import './RandomPokemon.scss';
+import './PokemonRender.scss';
 
-export default class RandomPokemon extends React.Component {
+export default class PokemonRender extends React.Component {
 
     constructor(props) {
         super(props);

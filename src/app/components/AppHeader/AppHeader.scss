@@ -22,21 +22,3 @@
     margin: 0;
     flex-grow: 1;
 }
-
-.Button-header {
-    background-color: #444850;
-    border: none;
-    border-bottom: 0.2rem solid #161a20;
-    border-radius: 0.5rem;
-    margin: 0 0.2rem;
-    padding: 0.2rem;
-    height: 2.2rem;
-    width: 2.2rem;
-    font-size: 1rem;
-    color: white;
-
-    &:hover {
-        background-color: lighten($color: #6c7381, $amount: 0.2);
-        transition: 500ms;
-    }
-}

@@ -1,5 +1,6 @@
 import React from "react";
-import "./Keyboard.scss"
+import { Button } from "react-bootstrap";
+import "./PlayerKeyboard.scss"
 
 /**
  * @class Keyboard
@@ -7,7 +8,7 @@ import "./Keyboard.scss"
  * @property {char[]} usedLetters
  * @property {char} onKeyPress
  */
-export default class Keyboard extends React.Component {
+export default class PlayerKeyboard extends React.Component {
 
     constructor(props) {
         super(props);
@@ -40,28 +41,31 @@ export default class Keyboard extends React.Component {
                 {line.map(keyValue => {
                     switch (keyValue) {
                         case 'Enter': { 
-                            return <button key={`keyboard-tile` + keyValue}
+                            return <Button key={`keyboard-tile` + keyValue}
+                                variant="secondary"
                                 disabled={this.props.disabled}
                                 className="Button-keyboard-large" 
                                 onClick={this.handleSubmit}>
                                 <span className="icon-right-to-bracket-solid"></span>
-                            </button> }
+                            </Button> }
                         case 'Back': { 
-                            return <button key={`keyboard-tile` + keyValue}
+                            return <Button key={`keyboard-tile` + keyValue}
+                                variant="secondary"
                                 disabled={this.props.disabled}
                                 className="Button-keyboard-large"
                                 onClick={this.handleDelete}>
                                 <span className="icon-delete-left-solid"></span>
-                            </button> }
+                            </Button> }
                         default: { 
-                            return <button key={`keyboard-tile` + keyValue}
+                            return <Button key={`keyboard-tile` + keyValue}
+                                variant="secondary"
                                 className="Button-keyboard"
                                 disabled={this.props.disabled 
                                     || (this.props.usedLetters
                                         && this.props.usedLetters.includes(keyValue))}
                                 onClick={() => this.handleKeyPressed(keyValue)}>
                                 { keyValue }
-                            </button> }
+                            </Button> }
                     }
                 })}
             </div> 

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import './RandomPokemon.css';
+import './RandomPokemon.scss';
 
 export default class RandomPokemon extends React.Component {
 
@@ -8,19 +8,20 @@ export default class RandomPokemon extends React.Component {
         super(props);
         this.state = {
             pokemon: props.pokemon,
-            reveal: props.reveal
+            isRevealed: props.isRevealed
         };
     }
 
     render() {
-        return <article>
+        return <article className="mb-2 px-2">
             <div className="Pokemon-panel">
                 <img className={classNames({
                         "Pokemon-image": true,
-                        "Mysterious": this.state.reveal !== true
+                        "Mysterious": this.state.isRevealed !== true
                     })}
                     src={this.state.pokemon ? this.state.pokemon.sprites.front_default : ''}
-                    alt="Mysterious Pokémon">
+                    alt="Mysterious Pokémon"
+                    draggable="false">
                 </img>
             </div>
             { this.renderPokemonName() }

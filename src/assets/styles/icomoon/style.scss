@@ -1,0 +1,90 @@
+@import "variables";
+
+@font-face {
+  font-family: '#{$icomoon-font-family}';
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?jbo59h');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?jbo59h#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?jbo59h') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?jbo59h') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?jbo59h##{$icomoon-font-family}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: '#{$icomoon-font-family}' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-heart-crack-solid {
+  &:before {
+    content: $icon-heart-crack-solid; 
+  }
+}
+.icon-heart-solid {
+  &:before {
+    content: $icon-heart-solid; 
+  }
+}
+.icon-right-to-bracket-solid {
+  &:before {
+    content: $icon-right-to-bracket-solid; 
+  }
+}
+.icon-times-solid {
+  &:before {
+    content: $icon-times-solid; 
+  }
+}
+.icon-question-solid {
+  &:before {
+    content: $icon-question-solid; 
+  }
+}
+.icon-delete-left-solid {
+  &:before {
+    content: $icon-delete-left-solid; 
+  }
+}
+.icon-chart-simple-solid {
+  &:before {
+    content: $icon-chart-simple-solid; 
+  }
+}
+.icon-gear-solid {
+  &:before {
+    content: $icon-gear-solid; 
+  }
+}
+.icon-github-brands {
+  &:before {
+    content: $icon-github-brands; 
+  }
+}
+.icon-exclamation-triangle-solid {
+  &:before {
+    content: $icon-exclamation-triangle-solid; 
+  }
+}
+.icon-exclamation-solid {
+  &:before {
+    content: $icon-exclamation-solid; 
+  }
+}
+.icon-search-solid {
+  &:before {
+    content: $icon-search-solid; 
+  }
+}
+

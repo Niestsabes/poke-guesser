@@ -14,15 +14,9 @@
     width: 100%;
     min-height: 100%;
     height: 100%;
+    user-select: none;
 }
 
 .Pokemon-image.Mysterious {
     filter: contrast(0) opacity(1) brightness(0);
-}
-
-.Pokemon-answer {
-    display: block;
-    margin: 0.305rem 0;
-    font-size: 1.62rem;
-    text-transform: uppercase;
 }

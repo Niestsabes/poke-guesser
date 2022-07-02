@@ -1,0 +1,39 @@
+.Keyboard {
+    width: 27rem;
+    max-width: 100vw;
+}
+
+.Keyboard-line {
+    margin: 0.3rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+[class^="Button-keyboard"] {
+    background-color: #444850;
+    color: white;
+    border: none;
+    border-bottom: 0.2rem solid #161a20;
+    border-radius: 0.5rem;
+    margin: 0 0.2rem;
+    padding: 0.2rem;
+    height: 2.6rem;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    font-size: 1rem;
+    font-weight: bold;
+
+    &:hover:not(:disabled) {
+        background-color: lighten($color: #6c7381, $amount: 0.2);
+        transition: 500ms;
+    }
+
+    &:disabled {
+        opacity: 0.3;
+    }
+}
+
+.Button-keyboard {
+    max-width: 2.2rem;
+}

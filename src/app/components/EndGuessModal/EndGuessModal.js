@@ -6,6 +6,7 @@ import "./EndGuessModal.scss";
  * @class EndGuessModal
  * @property {object} pokemon
  * @property {char[]} listLetter
+ * @property {boolean} isGameWon
  */
 export default class EndGuessModal extends React.Component {
 
@@ -19,22 +20,26 @@ export default class EndGuessModal extends React.Component {
             aria-labelledby="end-game-modal-title"
             centered>
             <ModalHeader>
-                <h2 className="modal-title" id="#end-game-modal-title">You win!</h2>
+                <h2 className="modal-title" id="#end-game-modal-title">
+                    {this.props.isGameWon ? 'You Win!' : 'You Lose...'}
+                </h2>
                 <Button type="button" variant="secondary"aria-label="Close" className="btn-icon mx-0"
-                    onClick={() => this.setModalOpen(false)}>
+                    onClick={() => this.setState({ isModalOpen: false })}>
                     <span aria-hidden="true" className="icon-times"></span>
                 </Button>
             </ModalHeader>
-            <ModalBody>
+            <ModalBody> 
                 <p>
-                    Congratulations, you have caught this Pokémon!<br/>
+                    {this.props.isGameWon ? 
+                        'Congratulations, you have caught this Pokémon!' :
+                        'Oh no, the Pokemon ran away!'}<br/>
                     Come back tomorrow to discover a new wild Pokémon.
                 </p>
                 <h3 className="modal-subtitle">Summary{this.renderPokemonName(this.props.pokemon)}</h3>
                 <div className="summary-table-wrapper">
                     <img className="summary-table-image"
                         src={this.props.pokemon ? this.props.pokemon.sprites.front_default : ''}
-                        alt="Pokemon image">
+                        alt="Pokemon">
                     </img>
                     <table>
                         <thead>{this.renderLetterRow(this.props.listLetter)}</thead>
@@ -52,17 +57,9 @@ export default class EndGuessModal extends React.Component {
     componentDidMount() { }
 
     /**
-     * Change state of modal
-     * @param {boolean} value 
-     */
-    setModalOpen(isOpen) {
-        this.setState({ isModalOpen: isOpen });
-    }
-
-    /**
      * Render Pokemon's name
      * @param {object} pokemon 
-     * @returns {JSX}
+     * @returns {string}
      */
     renderPokemonName(pokemon) {
         return this.props.pokemon && this.props.pokemon.name ? ' - ' + this.props.pokemon.name.toUpperCase() : '';

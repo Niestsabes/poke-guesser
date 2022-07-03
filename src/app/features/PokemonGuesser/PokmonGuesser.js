@@ -78,7 +78,8 @@ export default class PokemonGuesser extends React.Component {
         if (this.state.isGuessLost || this.state.isGuessWon) {
             return <EndGuessModal
                 pokemon={this.state.currentPokemon}
-                listLetter={this.state.listSubmitLetter}>
+                listLetter={this.state.listSubmitLetter}
+                isGameWon={this.state.isGuessWon}>
             </EndGuessModal>
         }
     }

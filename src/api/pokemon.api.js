@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const rootApi = 'https://pokeapi.co/api/v2/';
+import APP_CONFIG from "../config/config";
 
 function PokemonApi() {};
 
@@ -9,7 +8,7 @@ function PokemonApi() {};
  * @param {number|string} idOrName
  */
 PokemonApi.prototype.getPokemon = function(idOrName) {
-    return axios.get(rootApi + `pokemon/${idOrName}`)
+    return axios.get(APP_CONFIG.extUrl.pokeApi + `pokemon/${idOrName}`)
         .then( output => { return output.data; } );
 };
 

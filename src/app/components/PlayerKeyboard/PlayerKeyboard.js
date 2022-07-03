@@ -1,4 +1,5 @@
 import React from "react";
+import Settings from "../../services/config.service";
 import { Button } from "react-bootstrap";
 import "./PlayerKeyboard.scss"
 
@@ -12,22 +13,24 @@ export default class PlayerKeyboard extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = { keyboard: Settings.getKeyboard() };
         this.handleKeyPressed = this.handleKeyPressed.bind(this);
         this.handleSubmit = this.handleKeyPressed.bind(this);
         this.handleDelete = this.handleKeyPressed.bind(this);
     }
-
-    qwertyKeyboard = [
-        ['Q', 'W', 'E', 'R', 'T','Y', 'U', 'I', 'O', 'P'],
-        ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-        ['Enter', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Back']
-    ]
-
+    
     render() {
         return <div className="Keyboard mb-2 px-2">
-            { this.renderKeyboard(this.qwertyKeyboard) }
+            { this.renderKeyboard(this.state.keyboard) }
         </div>
+    }
+
+    componentDidMount() {
+        Settings.addListener('playerKeyboard', () => this.setState({ keyboard: Settings.getKeyboard() }));
+    }
+
+    componentWillUnmount() {
+        Settings.removeListener('playerKeyboard');
     }
 
     /**

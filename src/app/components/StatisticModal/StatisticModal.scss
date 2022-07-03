@@ -1,0 +1,62 @@
+.statistic-figure-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.statistic-figure-line {
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 230px;
+    margin-bottom: 0.25rem;
+}
+
+.statistic-figure {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    margin: 0 0.25rem 0.25rem 0.25rem;
+    padding: 0.5rem;
+    background-color: #1e2128;
+    border-radius: 1rem;
+}
+
+.statistic-figure-label {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.statistic-figure-value {
+    margin-top: -0.5rem;
+    color: #587dc8;
+    font-size: 1.7rem;
+    font-style: normal;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.statistic-performance-wrapper {
+    margin-bottom: 0.5rem;
+}
+
+.statistic-performance-line {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0.25rem 0.25rem 0.25rem;
+}
+
+.statistic-performance-label {
+    margin-right: 0.5rem;
+    width: 2rem;
+    font-weight: bold;
+}
+
+.statistic-performance-value {
+    flex-grow: 1;
+}

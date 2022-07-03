@@ -5,7 +5,6 @@ import { Button, Modal, ModalHeader, ModalBody, Form } from "react-bootstrap";
 
 /**
  * @class SettingModal
- * @property {string} defaultKeyboard
  */
 export default class SettingModal extends React.Component {
 

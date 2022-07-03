@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import HelpModal from "../HelpModal/HelpModal";
 import './AppHeader.scss';
 import SettingModal from "../SettingModal/SettingModal";
+import StatisticModal from "../StatisticModal/StatisticModal";
 
 /**
  * @class AppHeader
@@ -13,6 +14,7 @@ export default class AppHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
+        this.statisticModalRef = new React.createRef();
         this.helpModalRef = new React.createRef();
         this.settingModalRef = new React.createRef();
     }
@@ -25,17 +27,18 @@ export default class AppHeader extends React.Component {
                         <span className="icon-github-brands" aria-label="GitHub"></span>
                     </Button>
                 </a>
-                <Button variant="secondary" className="btn-icon">
-                    <span className="icon-chart-simple-solid" aria-label="Stats"></span>
+                <Button variant="secondary" className="btn-icon" onClick={() => this.statisticModalRef.current.show()}>
+                    <span className="icon-chart-simple-solid" aria-label="Statistics"></span>
                 </Button>
                 <h1 className="App-title">PokéGuesser</h1>
-                <Button variant="secondary" className="btn-icon"  onClick={() => this.helpModalRef.current.show()}>
+                <Button variant="secondary" className="btn-icon" onClick={() => this.helpModalRef.current.show()}>
                     <span className="icon-question-solid" aria-label="Help"></span>
                 </Button>
                 <Button variant="secondary" className="btn-icon" onClick={() => this.settingModalRef.current.show()}>
                     <span className="icon-gear-solid" aria-label="Settings"></span>
                 </Button>
             </menu>
+            <StatisticModal ref={this.statisticModalRef}></StatisticModal>
             <HelpModal ref={this.helpModalRef}></HelpModal>
             <SettingModal ref={this.settingModalRef}></SettingModal>
         </header>

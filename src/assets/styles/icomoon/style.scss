@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: '#{$icomoon-font-family}';
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?mosfch');
-  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?mosfch#iefix') format('embedded-opentype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?mosfch') format('truetype'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?mosfch') format('woff'),
-    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?mosfch##{$icomoon-font-family}') format('svg');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?8lofg1');
+  src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?8lofg1#iefix') format('embedded-opentype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?8lofg1') format('truetype'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?8lofg1') format('woff'),
+    url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?8lofg1##{$icomoon-font-family}') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,6 +27,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-moon-solid {
+  &:before {
+    content: $icon-moon-solid; 
+  }
+}
+.icon-sun-solid {
+  &:before {
+    content: $icon-sun-solid; 
+  }
+}
+.icon-skull-solid {
+  &:before {
+    content: $icon-skull-solid; 
+  }
+}
 .icon-share-nodes-solid {
   &:before {
     content: $icon-share-nodes-solid; 
@@ -95,6 +110,16 @@
 .icon-check {
   &:before {
     content: $icon-check; 
+  }
+}
+.icon-hourglass-solid {
+  &:before {
+    content: $icon-hourglass-solid; 
+  }
+}
+.icon-crown-solid {
+  &:before {
+    content: $icon-crown-solid; 
   }
 }
 

@@ -1,10 +1,12 @@
 import React from "react";
 import PokemonApi from '../../../api/pokemon.api';
+import APP_CONFIG from "../../../config/config";
 import PokemonRender from "../../components/PokemonRender/PokemonRender";
 import PlayerKeyboard from "../../components/PlayerKeyboard/PlayerKeyboard";
 import PlayerHealth from "../../components/PlayerHealth/PlayerHealth";
 import PokemonHealth from "../../components/PokemonHealth/PokemonHealth";
 import EndGuessModal from "../../components/EndGuessModal/EndGuessModal";
+import Storage from "../../services/Storage.service";
 
 /**
  * @class PokemonGuesser
@@ -22,10 +24,11 @@ export default class PokemonGuesser extends React.Component {
         this.state = {
             currentPokemon: null,
             listSubmitLetter: [],
-            health: 5,
-            maxHealth: 5,
+            health: APP_CONFIG.game.maxLife,
+            maxHealth: APP_CONFIG.game.maxLife,
             isGuessWon: false,
             isGuessLost: false,
+            isGameSaved: false
         };
         this.handleKeyPressed = this.handleKeyPressed.bind(this);
         this.handlePokemonMissed = this.handlePokemonMissed.bind(this);
@@ -66,6 +69,14 @@ export default class PokemonGuesser extends React.Component {
         }
     }
     
+    componentDidUpdate() {
+        // Check for saving game
+        if ((this.state.isGuessWon || this.state.isGuessLost) && !this.state.isGameSaved) {
+            this.saveGame();
+            this.setState({ isGameSaved: true });
+        }
+    }
+
     fetchRandomPokemon() {
         this.setState({ mounted: true });
         const pokeId = Math.floor(Math.random() * 900 + 1);
@@ -74,6 +85,10 @@ export default class PokemonGuesser extends React.Component {
         });
     }
 
+    /**
+     * Render end of game modal
+     * @returns {JSX}
+     */
     renderEndGameModal() {
         if (this.state.isGuessLost || this.state.isGuessWon) {
             return <EndGuessModal
@@ -99,10 +114,12 @@ export default class PokemonGuesser extends React.Component {
      * @param {char} key 
      */
     handlePokemonMissed(key) {
-        this.setState({
-            health: this.state.health - 1,
-            isGuessLost: !this.state.isGuessWon && this.state.health - 1 <= 0
-        });
+        if (!this.state.isGuessLost) {
+            this.setState({
+                health: this.state.health - 1,
+                isGuessLost: !this.state.isGuessWon && this.state.health - 1 <= 0
+            });
+        }
     }
 
     /**
@@ -110,8 +127,28 @@ export default class PokemonGuesser extends React.Component {
      * @param {object} pokemon 
      */
     handlePokemonDiscovered(pokemon) {
-        this.setState({
-            isGuessWon: true
+        if (!this.state.isGuessWon) {
+            this.setState({ isGuessWon: true });
+        }
+    }
+
+    /**
+     * Save user game data after game end
+     */
+    saveGame() {
+        let userStats = Storage.getUserStats();
+        userStats.listGame.push({
+            date: Date.now(),
+            isWon: this.state.isGuessWon,
+            lifeCount: this.state.health,
+            letterCount: this.state.listSubmitLetter.length
         });
+        if (this.state.isGuessWon) {
+            userStats.currentStreak++;
+            userStats.bestStreak = Math.max(userStats.currentStreak, userStats.bestStreak);
+        } else {
+            userStats.currentStreak = 0;
+        }
+        Storage.setUserStats(userStats);
     }
 }

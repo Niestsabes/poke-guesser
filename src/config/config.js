@@ -32,6 +32,9 @@ const APP_CONFIG = {
             ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
             ['Enter', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', 'Back']
         ]
+    },
+    game: {
+        maxLife: 5
     }
 }
 

@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-dev:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Development Docker image
+      run: docker build . --file Dockerfile --tag poke-guesser-dev:$(date +%s)
+  build-prod:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Production Docker image
+      run: docker build . --file Dockerfile.prod --tag poke-guesser-prod:$(date +%s)

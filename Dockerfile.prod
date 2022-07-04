@@ -1,14 +1,14 @@
 # syntax=docker/dockerfile:1
 
 # build production app
-FROM node:16-alpine
+FROM node:16-alpine as build
 
 WORKDIR /app
 COPY . .
 
 RUN npm install --production --silent
 RUN npm -v
-RUN num run build
+RUN npm run build
 
 # build production env
 FROM nginx:stable-alpine

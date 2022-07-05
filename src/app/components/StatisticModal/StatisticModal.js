@@ -2,19 +2,19 @@ import React from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
 import ValueGauge from "../ValueGauge/ValueGauge";
 import "./StatisticModal.scss";
+import Storage from "../../services/Storage.service";
+import APP_CONFIG from "../../../config/config";
 
 /**
  * @class StatisticModal
  * @property {string} defaultKeyboard
  */
-import Storage from "../../services/Storage.service";
-import APP_CONFIG from "../../../config/config";
-
 export default class StatisticModal extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = { userStats: Storage.getUserStats() };
+        Storage.addListener('userStats', 'statisticModal', () => { this.setState({ userStats: Storage.getUserStats() }) })
     }
 
     render() {
@@ -57,6 +57,10 @@ export default class StatisticModal extends React.Component {
                 </article>
             </ModalBody>
         </Modal>
+    }
+
+    componentWillUnmount() {
+        Storage.removeListener('userStats', 'statisticModal');
     }
 
     show() {

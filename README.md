@@ -37,11 +37,11 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 In the project directory, if [Docker](https://www.docker.com/) is installed on your environment, you can run:
 
-### `docker build -t poke-guesser .`
+### `docker build . -t poke-guesser -f Dockerfile.local`
 
 Builds the app in the development mode in a local container.\
 The name of the container is *poke-guesser*.
 
-### `docker run -d poke-guesser`
+### `docker run -dp 3000:3000 poke-guesser`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.

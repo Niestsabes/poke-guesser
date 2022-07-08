@@ -1,7 +1,12 @@
 const APP_CONFIG = {
+    app: {
+        name: 'PokeGuesser',
+        url: 'http://localhost:3000',
+    },
     extUrl: {
         pokeApi: 'https://pokeapi.co/api/v2/',
         pokeApiWebsite: 'https://pokeapi.co/',
+        pokedex: 'https://www.pokemon.com/us/pokedex/',
         git: 'https://github.com/Niestsabes/poke-guesser',
         whosThatPokemon: 'https://knowyourmeme.com/memes/whos-that-pokemon',
         pokemonShowdown: 'https://pokemonshowdown.com/',

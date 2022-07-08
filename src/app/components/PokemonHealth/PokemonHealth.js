@@ -57,14 +57,11 @@ export default class PokemonHealth extends React.Component {
      */
     checkLetterMisses(listPrevLetters, listNewLetters, pokemon) {
         const listNewLetter = listNewLetters.filter(ltr => listPrevLetters.findIndex(prvLtr => prvLtr === ltr) < 0);
-        let hasMissed = false;
-        listNewLetter.forEach(letter => {
-            if (!pokemon.name.toUpperCase().includes(letter.toUpperCase())) {
-                this.hasMissed = true;
-                this.props.onMiss(letter);
-            }
-        });
-        return hasMissed;
+        const listMissLetter = listNewLetter.filter(ltr => !pokemon.name.toUpperCase().includes(ltr.toUpperCase()));
+        if (listMissLetter.length > 0) {
+            this.props.onMiss(listMissLetter);
+        }
+        return listMissLetter.length > 0;
     }
 
     /**

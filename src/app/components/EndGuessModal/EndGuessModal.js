@@ -1,4 +1,5 @@
 import React from "react";
+import APP_CONFIG from "../../../config/config";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
 import "./EndGuessModal.scss";
 
@@ -12,7 +13,10 @@ export default class EndGuessModal extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { isModalOpen: true };
+        this.state = {
+            isModalOpen: true,
+            shareBtnText: 'Share'
+        };
     }
 
     render() {
@@ -46,27 +50,34 @@ export default class EndGuessModal extends React.Component {
                         <tbody>{this.renderLetterMatchRow(this.props.pokemon, this.props.listLetter)}</tbody>
                     </table>
                 </div>
-                <Button type="button" aria-label="Share">
-                    <span className="icon-share-nodes-solid mx-1"></span>
-                    <span className="mx-1">Share</span>
-                </Button>
+                <menu className="p-0 m-0">
+                    <a href={APP_CONFIG.extUrl.pokedex + this.props.pokemon.name} target="_blank" rel="noreferrer">
+                        <Button className="btn-secondary" type="button" aria-label="View pokemon in pokedex">
+                            <span className="icon-search-solid mx-1"></span>
+                            <span className="mx-1">View in Pokedex</span>
+                        </Button>
+                    </a>
+                    <Button type="button" aria-label="Share game summary"
+                        onClick={() => { this.handleShareSummary(this.props.pokemon, this.props.listLetter)}}>
+                        <span className="icon-share-nodes-solid mx-1"></span>
+                        <span className="mx-1">{ this.state.shareBtnText }</span>
+                    </Button>
+                </menu>
             </ModalBody>
         </Modal>
     }
 
-    componentDidMount() { }
-
     /**
-     * Render Pokemon's name
+     * Renders Pokemon's name
      * @param {object} pokemon 
      * @returns {string}
      */
     renderPokemonName(pokemon) {
-        return this.props.pokemon && this.props.pokemon.name ? ' - ' + this.props.pokemon.name.toUpperCase() : '';
+        return pokemon && pokemon.name ? ' - ' + pokemon.name.toUpperCase() : '';
     }
 
     /**
-     * Render letters used during the game in table row
+     * Renders letters used during the game in table row
      * @param {object} pokemon 
      * @param {char[]} listLetter 
      * @returns {JSX}
@@ -82,7 +93,7 @@ export default class EndGuessModal extends React.Component {
     }
 
     /**
-     * Render matches between given letters and pokemon name
+     * Renders matches between given letters and pokemon name
      * @param {object} pokemon 
      * @param {char[]} listLetter
      * @returns {JSX}
@@ -102,4 +113,26 @@ export default class EndGuessModal extends React.Component {
         return <tr>{listElem}</tr>
     }
 
+    /**
+     * Copies current game's summary in clipboard
+     * @param {object} pokemon 
+     * @param {string[]} listLetter
+     * @returns {string}
+     */
+    handleShareSummary(pokemon, listLetter) {
+        if (pokemon && pokemon.name && listLetter) {
+            const isWin = listLetter.filter(letter => !pokemon.name.toUpperCase().includes(letter)).length < APP_CONFIG.game.maxLife;
+            const title = `${APP_CONFIG.app.name} (@${APP_CONFIG.app.name}) \n`;
+            const mgs = isWin ? 'Pokémon Caught!' : 'Pokémon ran away...';
+            const attempts = listLetter.map(letter => pokemon.name.toUpperCase().includes(letter) ? '✔️' : '💔').join(' ') + '\n';
+            const url = `${APP_CONFIG.app.url}`;
+            navigator.clipboard.writeText([title, mgs, attempts, url].join('\n'));
+
+            this.setState({ shareBtnText: 'Copied!' });
+            setTimeout(() => { this.setState({ shareBtnText: 'Share' }); }, 7000);
+        }
+        else {
+            throw new Error('Cannot copy summary to clipboard has pokemon of letters have not been provided.')
+        }
+    }
 }

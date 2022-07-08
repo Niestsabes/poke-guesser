@@ -1,5 +1,5 @@
 function LocalStorageService() {
-    this.listeners = { userStats: {} };
+    this.listeners = { userStats: {}, currentGame: {} };
 }
 
 LocalStorageService.prototype.getUserStats = function() {
@@ -14,6 +14,19 @@ LocalStorageService.prototype.getUserStats = function() {
 LocalStorageService.prototype.setUserStats = function(userStats) {
     localStorage.setItem('userStats', JSON.stringify(userStats));
     this.invoke('userStats');
+}
+
+LocalStorageService.prototype.getCurrentGame = function() {
+    return JSON.parse(localStorage.getItem('currentGame'));
+}
+
+LocalStorageService.prototype.setCurrentGame = function(currentGame) {
+    localStorage.setItem('currentGame', JSON.stringify(currentGame));
+    this.invoke('currentGame');
+}
+
+LocalStorageService.prototype.clearCurrentGame = function() {
+    this.setCurrentGame(null);
 }
 
 /**

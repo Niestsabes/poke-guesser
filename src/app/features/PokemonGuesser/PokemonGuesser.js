@@ -36,6 +36,16 @@ export default class PokemonGuesser extends React.Component {
     }
 
     render() {
+        // This modal is renderes only if the game is over
+        let endGameModal = null;
+        if (this.state.isGuessLost || this.state.isGuessWon) {
+            endGameModal = <EndGuessModal
+                pokemon={this.state.currentPokemon}
+                listLetter={this.state.listSubmitLetter}
+                isGameWon={this.state.isGuessWon}>
+            </EndGuessModal>
+        }
+
         return <section className='d-flex flex-column align-items-center'>
             <PokemonRender
                 pokemon={this.state.currentPokemon}
@@ -58,45 +68,59 @@ export default class PokemonGuesser extends React.Component {
                 disabled={this.state.isGuessWon || this.state.isGuessLost}
                 onKeyPress={this.handleKeyPressed}>
             </PlayerKeyboard>
-            {this.renderEndGameModal()}
+            {endGameModal}
         </section>
     }
     
     componentDidMount() {
         if (!this.mounted) {
             this.mounted = true;
-            this.fetchRandomPokemon();
+            this.loadCurrentGameData();
         }
     }
     
     componentDidUpdate() {
-        // Check for saving game
+        this.saveCurrentGameData();
         if ((this.state.isGuessWon || this.state.isGuessLost) && !this.state.isGameSaved) {
             this.saveGame();
             this.setState({ isGameSaved: true });
-        }
+        } 
     }
 
-    fetchRandomPokemon() {
-        this.setState({ mounted: true });
-        const pokeId = Math.floor(Math.random() * 900 + 1);
-        this.pokeApi.getPokemon(pokeId).then( poke => {
-            this.setState({ currentPokemon: poke });
+    /**
+     * Hydrates this components with current game data stored in localStorage
+     */
+    loadCurrentGameData() {
+        let game = Storage.getCurrentGame();
+        if (!game) {
+            game = {
+                date: Date.now(),
+                pokeId: Math.floor(Math.random() * 900 + 1),
+                playedLetters: [],
+                isCompleted: false
+            };
+            Storage.setCurrentGame(game);
+        }
+        this.pokeApi.getPokemon(game.pokeId).then( poke => {
+            this.setState({
+                currentPokemon: poke,
+                listSubmitLetter: game.playedLetters,
+                health: APP_CONFIG.game.maxLife,
+                isGameSaved: game.isCompleted
+            });
         });
     }
 
     /**
-     * Render end of game modal
-     * @returns {JSX}
+     * Saves current game data in localStorage
      */
-    renderEndGameModal() {
-        if (this.state.isGuessLost || this.state.isGuessWon) {
-            return <EndGuessModal
-                pokemon={this.state.currentPokemon}
-                listLetter={this.state.listSubmitLetter}
-                isGameWon={this.state.isGuessWon}>
-            </EndGuessModal>
-        }
+    saveCurrentGameData() {
+        Storage.setCurrentGame({
+            date: Date.now(),
+            pokeId: this.state.currentPokemon.id,
+            playedLetters: this.state.listSubmitLetter,
+            isCompleted: this.state.isGuessWon || this.state.isGuessLost
+        });
     }
 
     /**
@@ -111,13 +135,13 @@ export default class PokemonGuesser extends React.Component {
 
     /**
      * @event (onMiss) from PokemonHealth
-     * @param {char} key 
+     * @param {string[]} listMiss 
      */
-    handlePokemonMissed(key) {
+    handlePokemonMissed(listMiss) {
         if (!this.state.isGuessLost) {
             this.setState({
-                health: this.state.health - 1,
-                isGuessLost: !this.state.isGuessWon && this.state.health - 1 <= 0
+                health: this.state.health - listMiss.length,
+                isGuessLost: !this.state.isGuessWon && this.state.health - listMiss.length <= 0
             });
         }
     }
@@ -151,4 +175,5 @@ export default class PokemonGuesser extends React.Component {
         }
         Storage.setUserStats(userStats);
     }
+
 }

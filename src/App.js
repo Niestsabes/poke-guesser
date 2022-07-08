@@ -1,7 +1,7 @@
 import './App.css';
 import AppHeader from './app/components/AppHeader/AppHeader';
 import AppFooter from './app/components/AppFooter/AppFooter';
-import PokemonGuesser from './app/features/PokemonGuesser/PokmonGuesser';
+import PokemonGuesser from './app/features/PokemonGuesser/PokemonGuesser';
 
 function App() {
   return (

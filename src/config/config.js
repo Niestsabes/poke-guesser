@@ -1,7 +1,7 @@
 const APP_CONFIG = {
     app: {
         name: 'PokeGuesser',
-        url: 'http://localhost:3000',
+        url: 'https://pokeguesser.azurewebsites.net',
     },
     extUrl: {
         pokeApi: 'https://pokeapi.co/api/v2/',

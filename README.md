@@ -1,9 +1,20 @@
-# Getting Started with PokéGuesser
+# Getting Started with [PokéGuesser](https://pokeguesser.azurewebsites.net)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[PokeGuesser](https://pokeguesser.azurewebsites.net) is an open-source project created by Sébastien Cayet.
+Click [here](https://pokeguesser.azurewebsites.net) to play the game.
+
+This game mixes the concept of Who's that& Pokémon? with an actual Pokémon Battle.
+Everyday, you will randomly encounter a wild Pokémon. You have 5 lives to guess who that Pokémon is.
+
+For each try, you propose a letter.
+If that letter is contained in Pokemon's name, then all occurences of that letter are revealed.
+However, if Pokémon's name does not contain that letter, you lose a life.
+
+**Fully reveal the name of the Pokémon before losing your lives to win.**
 
 ## Available NPM Scripts
 
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 In the project directory, if [NodeJS](https://nodejs.org/en/) is installed on your environment, you can run:
 
 ### `npm install`

@@ -1,5 +1,5 @@
 import React from "react";
-import PokemonApi from '../../../api/pokemon.api';
+import PokemonApi from '../../services/PokeApi.service.js';
 import APP_CONFIG from "../../../config/config";
 import PokemonRender from "../../components/PokemonRender/PokemonRender";
 import PlayerKeyboard from "../../components/PlayerKeyboard/PlayerKeyboard";

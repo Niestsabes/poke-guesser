@@ -1,9 +1,8 @@
-# Getting Started with [PokéGuesser](https://pokeguesser.azurewebsites.net)
+# Getting Started with PokéGuesser
 
-[PokeGuesser](https://pokeguesser.azurewebsites.net) is an open-source project created by Sébastien Cayet.
-Click [here](https://pokeguesser.azurewebsites.net) to play the game.
+PokéGuesser is an open-source project created by Sébastien Cayet.
 
-This game mixes the concept of Who's that& Pokémon? with an actual Pokémon Battle.
+Concepts qnd designs are inspired by Wordle, the "Who's that Pokémon?" meme and the Pokemon battle system.
 Everyday, you will randomly encounter a wild Pokémon. You have 5 lives to guess who that Pokémon is.
 
 For each try, you propose a letter.
@@ -11,6 +10,8 @@ If that letter is contained in Pokemon's name, then all occurences of that lette
 However, if Pokémon's name does not contain that letter, you lose a life.
 
 **Fully reveal the name of the Pokémon before losing your lives to win.**
+
+Access the game by clicking on this link: [pokeguesser.azurewebsites.net](https://pokeguesser.azurewebsites.net) to play the game.
 
 ## Available NPM Scripts
 

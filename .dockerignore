@@ -1,8 +1,9 @@
 node_modules
 build
+local
 .dockerignore
 .gitignore
 .github
-Dockerfile
+Dockerfile.local
 Dockerfile.prod
 README.md

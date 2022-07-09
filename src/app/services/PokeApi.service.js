@@ -1,5 +1,5 @@
 import axios from "axios";
-import APP_CONFIG from "../config/config";
+import APP_CONFIG from "../../config/config";
 
 function PokemonApi() {};
 

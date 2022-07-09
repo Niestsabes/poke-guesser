@@ -4,10 +4,13 @@
 FROM node:16-alpine as build
 
 WORKDIR /app
-COPY . .
 
+COPY package*.json ./
 RUN npm install --production --silent
 RUN npm -v
+
+COPY . .
+COPY src/env/env.prod.js srv/env/env.local.js
 RUN npm run build
 
 # build production env

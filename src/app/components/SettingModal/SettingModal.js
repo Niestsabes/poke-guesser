@@ -1,5 +1,5 @@
 import React from "react";
-import Settings from "../../services/config.service";
+import Settings from "../../services/Config.service";
 import APP_CONFIG from "../../../config/config";
 import { Button, Modal, ModalHeader, ModalBody, Form } from "react-bootstrap";
 

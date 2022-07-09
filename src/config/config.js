@@ -39,7 +39,8 @@ const APP_CONFIG = {
         ]
     },
     game: {
-        maxLife: 5
+        maxLife: 5,
+        maxPokeId: 905
     }
 }
 

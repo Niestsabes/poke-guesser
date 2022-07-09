@@ -1,28 +1,27 @@
 import React from "react";
-import PokemonApi from '../../services/PokeApi.service.js';
 import APP_CONFIG from "../../../config/config";
+import PokeApi from '../../services/PokeApi.service';
+import Storage from "../../services/Storage.service";
+import DateHelper from "../../services/Date.service";
 import PokemonRender from "../../components/PokemonRender/PokemonRender";
 import PlayerKeyboard from "../../components/PlayerKeyboard/PlayerKeyboard";
 import PlayerHealth from "../../components/PlayerHealth/PlayerHealth";
 import PokemonHealth from "../../components/PokemonHealth/PokemonHealth";
 import EndGuessModal from "../../components/EndGuessModal/EndGuessModal";
-import Storage from "../../services/Storage.service";
 
 /**
  * @class PokemonGuesser
- * @property {PokemonApi} pokeApi
  * @property {boolean} mounted
  */
 export default class PokemonGuesser extends React.Component {
 
-    pokeApi;
     mounted = false;
 
     constructor(props) {
         super(props);
-        this.pokeApi = new PokemonApi();
         this.state = {
-            currentPokemon: null,
+            gameDate: undefined,
+            currentPokemon: undefined,
             listSubmitLetter: [],
             health: APP_CONFIG.game.maxLife,
             maxHealth: APP_CONFIG.game.maxLife,
@@ -40,6 +39,7 @@ export default class PokemonGuesser extends React.Component {
         let endGameModal = null;
         if (this.state.isGuessLost || this.state.isGuessWon) {
             endGameModal = <EndGuessModal
+                date={this.state.gameDate}
                 pokemon={this.state.currentPokemon}
                 listLetter={this.state.listSubmitLetter}
                 isGameWon={this.state.isGuessWon}>
@@ -75,7 +75,7 @@ export default class PokemonGuesser extends React.Component {
     componentDidMount() {
         if (!this.mounted) {
             this.mounted = true;
-            this.loadCurrentGameData();
+            this.loadCurrentGameData(DateHelper.getTodayStamp());
         }
     }
     
@@ -88,21 +88,43 @@ export default class PokemonGuesser extends React.Component {
     }
 
     /**
-     * Hydrates this components with current game data stored in localStorage
+     * Returns pokemon id based on today's date
+     * @param {number} dateStamp
+     * @returns {number}
      */
-    loadCurrentGameData() {
+    getPokemonId(dateStamp) {
+        const gameId = dateStamp % APP_CONFIG.game.maxPokeId;
+        let pokeId = 1;
+        const n = parseInt(process.env.REACT_APP_GAME_CONFIG_ENCRYPT_FACTOR, 10);
+        const e = parseInt(process.env.REACT_APP_GAME_CONFIG_ENCRYPT_MODULE, 10);
+        for (let i = 1; i < gameId; i++) {
+            pokeId *= e;
+            pokeId %= n;
+        }
+        pokeId = 1 + Math.round(pokeId / process.env.REACT_APP_GAME_CONFIG_ENCRYPT_MODULE * (APP_CONFIG.game.maxPokeId - 1));
+        return pokeId;
+    }
+
+    /**
+     * Loads current game data
+     * - Tries to retrieve today's game data from localStorage
+     * - If nothing found or if the game is outdated, create a new game 
+     */
+    loadCurrentGameData(dateStamp) {
+        const dateString = DateHelper.getStringFromStamp(dateStamp);
         let game = Storage.getCurrentGame();
-        if (!game) {
+        if (!game || game.date !== dateString) {
             game = {
-                date: Date.now(),
-                pokeId: Math.floor(Math.random() * 900 + 1),
+                date: dateString,
+                pokeId: this.getPokemonId(dateStamp),
                 playedLetters: [],
                 isCompleted: false
             };
             Storage.setCurrentGame(game);
         }
-        this.pokeApi.getPokemon(game.pokeId).then( poke => {
+        PokeApi.getPokemon(game.pokeId).then( poke => {
             this.setState({
+                gameDate: game.date,
                 currentPokemon: poke,
                 listSubmitLetter: game.playedLetters,
                 health: APP_CONFIG.game.maxLife,
@@ -116,7 +138,7 @@ export default class PokemonGuesser extends React.Component {
      */
     saveCurrentGameData() {
         Storage.setCurrentGame({
-            date: Date.now(),
+            date: this.state.gameDate,
             pokeId: this.state.currentPokemon.id,
             playedLetters: this.state.listSubmitLetter,
             isCompleted: this.state.isGuessWon || this.state.isGuessLost
@@ -162,7 +184,7 @@ export default class PokemonGuesser extends React.Component {
     saveGame() {
         let userStats = Storage.getUserStats();
         userStats.listGame.push({
-            date: Date.now(),
+            date: this.state.gameDate,
             isWon: this.state.isGuessWon,
             lifeCount: this.state.health,
             letterCount: this.state.listSubmitLetter.length

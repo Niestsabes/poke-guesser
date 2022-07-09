@@ -1,6 +1,5 @@
 import React from "react";
 import APP_CONFIG from "../../../config/config";
-import ENV from "../../../env/env.local";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
 import "./EndGuessModal.scss";
 
@@ -123,10 +122,10 @@ export default class EndGuessModal extends React.Component {
     handleShareSummary(pokemon, listLetter) {
         if (pokemon && pokemon.name && listLetter) {
             const isWin = listLetter.filter(letter => !pokemon.name.toUpperCase().includes(letter)).length < APP_CONFIG.game.maxLife;
-            const title = `${APP_CONFIG.app.name} (@${APP_CONFIG.app.name}) \n`;
+            const title = `${APP_CONFIG.app.name} (@${APP_CONFIG.app.name}) - ${this.props.date}\n`;
             const mgs = isWin ? 'Pokémon Caught!' : 'Pokémon ran away...';
-            const attempts = listLetter.map(letter => pokemon.name.toUpperCase().includes(letter) ? '✔️' : '💔').join(' ') + '\n';
-            const url = `${ENV.appUrl}`;
+            const attempts = listLetter.map(letter => pokemon.name.toUpperCase().includes(letter) ? '✅' : '💔').join(' ') + '\n';
+            const url = `${process.env.REACT_APP_URL}`;
             navigator.clipboard.writeText([title, mgs, attempts, url].join('\n'));
 
             this.setState({ shareBtnText: 'Copied!' });

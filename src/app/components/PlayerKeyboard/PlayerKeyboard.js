@@ -1,5 +1,5 @@
 import React from "react";
-import Settings from "../../services/config.service";
+import Settings from "../../services/Config.service";
 import { Button } from "react-bootstrap";
 import "./PlayerKeyboard.scss"
 

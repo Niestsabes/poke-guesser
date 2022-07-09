@@ -13,6 +13,14 @@ However, if Pokémon's name does not contain that letter, you lose a life.
 
 Access the game by clicking on this link: [pokeguesser.azurewebsites.net](https://pokeguesser.azurewebsites.net) to play the game.
 
+## Setup
+
+### Create Environment File
+
+Create a `.env` file at the root of this project, copied from `.env.dist`.
+You may change values of this file depending your need.
+Read more on environment files for React on [Create React App](https://create-react-app.dev/docs/adding-custom-environment-variables/).
+
 ## Available NPM Scripts
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

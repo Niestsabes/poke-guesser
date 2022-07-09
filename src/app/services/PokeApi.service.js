@@ -12,4 +12,6 @@ PokemonApi.prototype.getPokemon = function(idOrName) {
         .then( output => { return output.data; } );
 };
 
-export default PokemonApi;
+const PokeApi = new PokemonApi();
+
+export default PokeApi;

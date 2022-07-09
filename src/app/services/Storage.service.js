@@ -2,6 +2,8 @@ function LocalStorageService() {
     this.listeners = { userStats: {}, currentGame: {} };
 }
 
+// User stats
+
 LocalStorageService.prototype.getUserStats = function() {
     let userStats = JSON.parse(localStorage.getItem('userStats'));
     if (!userStats) {
@@ -16,6 +18,8 @@ LocalStorageService.prototype.setUserStats = function(userStats) {
     this.invoke('userStats');
 }
 
+// Current Game
+
 LocalStorageService.prototype.getCurrentGame = function() {
     return JSON.parse(localStorage.getItem('currentGame'));
 }
@@ -28,6 +32,8 @@ LocalStorageService.prototype.setCurrentGame = function(currentGame) {
 LocalStorageService.prototype.clearCurrentGame = function() {
     this.setCurrentGame(null);
 }
+
+// Events
 
 /**
  * Add listener to update event triggered by service

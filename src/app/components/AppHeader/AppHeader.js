@@ -30,7 +30,9 @@ export default class AppHeader extends React.Component {
                 <Button variant="secondary" className="btn-icon" onClick={() => this.statisticModalRef.current.show()}>
                     <span className="icon-chart-simple-solid" aria-label="Statistics"></span>
                 </Button>
-                <h1 className="App-title">PokéGuesser</h1>
+                <h1 className="App-title">
+                    P<img src={process.env.PUBLIC_URL + "/logo512.png"} alt=""/>keGuesser
+                </h1>
                 <Button variant="secondary" className="btn-icon" onClick={() => this.helpModalRef.current.show()}>
                     <span className="icon-question-solid" aria-label="Help"></span>
                 </Button>
@@ -42,9 +44,5 @@ export default class AppHeader extends React.Component {
             <HelpModal ref={this.helpModalRef}></HelpModal>
             <SettingModal ref={this.settingModalRef}></SettingModal>
         </header>
-    }
-
-    handleGitClick() {
-
     }
 }

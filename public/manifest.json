@@ -1,6 +1,6 @@
 {
-  "short_name": "PokéGuesser",
-  "name": "PokéGuesser - Who's that Pokémon ?",
+  "short_name": "PokeGuesser",
+  "name": "PokeGuesser - Who's that Pokémon ?",
   "icons": [
     {
       "src": "favicon.ico",

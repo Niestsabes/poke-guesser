@@ -49,7 +49,7 @@ export default class SettingModal extends React.Component {
                         (by <a href={APP_CONFIG.extUrl.twitter.joshWardle} target="_blank" rel="noreferrer">Josh&nbsp;Wardle</a>) and
                         the <a href={APP_CONFIG.extUrl.twitter.joshWardle} target="_blank" rel="noreferrer">Pokémon</a> video game series (by Game Freak).</p>
                     <p className="modal-paragraph">Pokémon data retrieved on <a href={APP_CONFIG.extUrl.pokeApi} target="_blank" rel="noreferrer">PokéApi</a>.</p>
-                    <p className="modal-paragraph">PokéGuesser is an <a href={APP_CONFIG.extUrl.git} target="_blank" rel="noreferrer">open-source&nbsp;project</a>.</p>
+                    <p className="modal-paragraph">PokeGuesser is an <a href={APP_CONFIG.extUrl.git} target="_blank" rel="noreferrer">open-source&nbsp;project</a>.</p>
                 </article>
             </ModalBody>
         </Modal>

@@ -1,6 +1,6 @@
-# Getting Started with PokéGuesser
+# Getting Started with PokeGuesser
 
-PokéGuesser is an open-source project created by Sébastien Cayet.
+PokeGuesser is an open-source project created by Sébastien Cayet.
 
 Concepts qnd designs are inspired by Wordle, the "Who's that Pokémon?" meme and the Pokemon battle system.
 Everyday, you will randomly encounter a wild Pokémon. You have 5 lives to guess who that Pokémon is.

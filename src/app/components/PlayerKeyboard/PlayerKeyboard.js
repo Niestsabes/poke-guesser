@@ -1,7 +1,8 @@
 import React from "react";
-import Settings from "../../services/Config.service";
+import Storage from "../../services/Storage.service";
 import { Button } from "react-bootstrap";
 import "./PlayerKeyboard.scss"
+import APP_CONFIG from "../../../config/config";
 
 /**
  * @class Keyboard
@@ -13,7 +14,7 @@ export default class PlayerKeyboard extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { keyboard: Settings.getKeyboard() };
+        this.state = { keyboard: this.getKeyboardTable(Storage.getUserConfig().keyboard) };
         this.handleKeyPressed = this.handleKeyPressed.bind(this);
         this.handleSubmit = this.handleKeyPressed.bind(this);
         this.handleDelete = this.handleKeyPressed.bind(this);
@@ -26,11 +27,14 @@ export default class PlayerKeyboard extends React.Component {
     }
 
     componentDidMount() {
-        Settings.addListener('playerKeyboard', () => this.setState({ keyboard: Settings.getKeyboard() }));
+        Storage.addListener(
+            'userConfig', 'playerKeyboard',
+            () => this.setState({ keyboard: this.getKeyboardTable(Storage.getUserConfig().keyboard) })
+        );
     }
 
     componentWillUnmount() {
-        Settings.removeListener('playerKeyboard');
+        Storage.removeListener('userConfig', 'playerKeyboard');
     }
 
     /**
@@ -92,4 +96,8 @@ export default class PlayerKeyboard extends React.Component {
      * @event (click) on delete key
      */
     handleDelete() {}
+
+    getKeyboardTable(keyboardName) {
+        return APP_CONFIG.keyboard[keyboardName];
+    }
 }

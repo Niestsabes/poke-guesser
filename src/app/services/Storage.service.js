@@ -1,5 +1,7 @@
+import APP_CONFIG from "../../config/config";
+
 function LocalStorageService() {
-    this.listeners = { userStats: {}, currentGame: {} };
+    this.listeners = { userStats: {}, currentGame: {}, userConfig: {} };
 }
 
 // User stats
@@ -31,6 +33,22 @@ LocalStorageService.prototype.setCurrentGame = function(currentGame) {
 
 LocalStorageService.prototype.clearCurrentGame = function() {
     this.setCurrentGame(null);
+}
+
+// User config
+
+LocalStorageService.prototype.getUserConfig = function() {
+    let userConfig = JSON.parse(localStorage.getItem('userConfig'));
+    if (!userConfig) {
+        userConfig = { keyboard: APP_CONFIG.configDefault.keyboard };
+        this.setUserConfig(userConfig);
+    }
+    return userConfig;
+}
+
+LocalStorageService.prototype.setUserConfig = function(userConfig) {
+    localStorage.setItem('userConfig', JSON.stringify(userConfig));
+    this.invoke('userConfig');
 }
 
 // Events

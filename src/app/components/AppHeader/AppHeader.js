@@ -2,9 +2,9 @@ import React from "react";
 import APP_CONFIG from "../../../config/config";
 import { Button } from "react-bootstrap";
 import HelpModal from "../HelpModal/HelpModal";
-import './AppHeader.scss';
 import SettingModal from "../SettingModal/SettingModal";
 import StatisticModal from "../StatisticModal/StatisticModal";
+import './AppHeader.scss';
 
 /**
  * @class AppHeader

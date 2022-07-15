@@ -1,5 +1,5 @@
 import React from "react";
-import Settings from "../../services/Config.service";
+import Storage from "../../services/Storage.service";
 import APP_CONFIG from "../../../config/config";
 import { Button, Modal, ModalHeader, ModalBody, Form } from "react-bootstrap";
 
@@ -11,7 +11,7 @@ export default class SettingModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            keyboardName: Settings.getKeyboardName(),
+            userConfig: Storage.getUserConfig(),
             isModalOpen: false
         };
         this.handleChangeKeyboard = this.handleChangeKeyboard.bind(this);
@@ -34,7 +34,7 @@ export default class SettingModal extends React.Component {
                     <Form.Group className="form-group" controlId="keyboard">
                         <Form.Label>Keyboard</Form.Label>
                         <Form.Select aria-label="Keyboard selection"
-                            value={this.state.keyboardName}
+                            value={this.state.userConfig.keyboard}
                             onChange={this.handleChangeKeyboard}>{
                             Object.keys(APP_CONFIG.keyboard).map(name => {
                                 return <option aria-label={name} value={name} key={`keyboard-select-${name}`}>{name.toUpperCase()}</option>
@@ -64,7 +64,9 @@ export default class SettingModal extends React.Component {
      * @param {*} event 
      */
     handleChangeKeyboard(event) {
-        this.setState({ keyboardName: event.target.value });
-        Settings.setKeyboardName(event.target.value);
+        let conf = this.state.userConfig;
+        conf.keyboard = event.target.value;
+        this.setState({ userConfig: conf });
+        Storage.setUserConfig(conf);
     }
 }

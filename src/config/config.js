@@ -16,6 +16,9 @@ const APP_CONFIG = {
         }
     },
     defaultKeyboard: 'qwerty',
+    configDefault: {
+        keyboard: 'qwerty'
+    },
     keyboard: {
         azerty: [
             ['A', 'Z', 'E', 'R', 'T','Y', 'U', 'I', 'O', 'P'],

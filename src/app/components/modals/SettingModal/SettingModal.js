@@ -1,6 +1,6 @@
 import React from "react";
-import Storage from "../../services/Storage.service";
-import APP_CONFIG from "../../../config/config";
+import Storage from "../../../services/Storage.service";
+import APP_CONFIG from "../../../../config/config";
 import { Button, Modal, ModalHeader, ModalBody, Form } from "react-bootstrap";
 
 /**

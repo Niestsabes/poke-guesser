@@ -1,5 +1,5 @@
 import React from "react";
-import APP_CONFIG from "../../../config/config";
+import APP_CONFIG from "../../../../../config/config";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
 import "./EndGuessModal.scss";
 

@@ -3,11 +3,11 @@ import APP_CONFIG from "../../../config/config";
 import PokeApi from '../../services/PokeApi.service';
 import Storage from "../../services/Storage.service";
 import DateHelper from "../../services/Date.service";
-import PokemonRender from "../../components/PokemonRender/PokemonRender";
-import PlayerKeyboard from "../../components/PlayerKeyboard/PlayerKeyboard";
-import PlayerHealth from "../../components/PlayerHealth/PlayerHealth";
-import PokemonHealth from "../../components/PokemonHealth/PokemonHealth";
-import EndGuessModal from "../../components/EndGuessModal/EndGuessModal";
+import PlayerKeyboard from "./components/PlayerKeyboard/PlayerKeyboard";
+import PlayerHealth from "./components/PlayerHealth/PlayerHealth";
+import PokemonHealth from "./components/PokemonHealth/PokemonHealth";
+import PokemonRender from "./components/PokemonRender/PokemonRender";
+import EndGuessModal from "./modals/EndGuessModal/EndGuessModal";
 
 /**
  * @class PokemonGuesser
@@ -16,6 +16,7 @@ import EndGuessModal from "../../components/EndGuessModal/EndGuessModal";
 export default class PokemonGuesser extends React.Component {
 
     mounted = false;
+    animateRenderer = false;
 
     constructor(props) {
         super(props);
@@ -29,6 +30,7 @@ export default class PokemonGuesser extends React.Component {
             isGuessLost: false,
             isGameSaved: false
         };
+        this.pokemonRenderRef = React.createRef();
         this.handleKeyPressed = this.handleKeyPressed.bind(this);
         this.handlePokemonMissed = this.handlePokemonMissed.bind(this);
         this.handlePokemonDiscovered = this.handlePokemonDiscovered.bind(this);
@@ -47,10 +49,14 @@ export default class PokemonGuesser extends React.Component {
         }
 
         return <section className='d-flex flex-column align-items-center'>
-            <PokemonRender
-                pokemon={this.state.currentPokemon}
-                isRevealed={this.state.isGuessWon || this.state.isGuessLost}>
-            </PokemonRender>
+            <article className="position-relative mb-3 px-2">
+                <PokemonRender
+                    ref={this.pokemonRenderRef}
+                    animate={this.animateRenderer}
+                    pokemon={this.state.currentPokemon}
+                    isRevealed={this.state.isGuessWon || this.state.isGuessLost}>
+                </PokemonRender>
+            </article>
             <div className="w-100 d-flex justify-content-evenly">
                 <PlayerHealth
                     maxHealth={this.state.maxHealth}
@@ -59,7 +65,8 @@ export default class PokemonGuesser extends React.Component {
                 <PokemonHealth
                     pokemon={this.state.currentPokemon}
                     letters={this.state.listSubmitLetter}
-                    onMiss={this.handlePokemonMissed}
+                    onHit={() => this.pokemonRenderRef.current.renderHit()}
+                    onMiss={listMiss => {this.pokemonRenderRef.current.renderMiss(); this.handlePokemonMissed(listMiss);}}
                     onDiscovered={this.handlePokemonDiscovered}>
                 </PokemonHealth>
             </div>
@@ -73,16 +80,18 @@ export default class PokemonGuesser extends React.Component {
     }
     
     componentDidMount() {
+        console.log(this.state);
         if (!this.mounted) {
             this.mounted = true;
             this.loadCurrentGameData(DateHelper.getTodayStamp());
+            setTimeout(() => { this.animateRenderer = true });
         }
     }
     
     componentDidUpdate() {
         this.saveCurrentGameData();
         if ((this.state.isGuessWon || this.state.isGuessLost) && !this.state.isGameSaved) {
-            this.saveGame();
+            this.saveEndingGameData();
             this.setState({ isGameSaved: true });
         } 
     }
@@ -146,6 +155,26 @@ export default class PokemonGuesser extends React.Component {
     }
 
     /**
+     * Save user game data after game end
+     */
+    saveEndingGameData() {
+        let userStats = Storage.getUserStats();
+        userStats.listGame.push({
+            date: this.state.gameDate,
+            isWon: this.state.isGuessWon,
+            lifeCount: this.state.health,
+            letterCount: this.state.listSubmitLetter.length
+        });
+        if (this.state.isGuessWon) {
+            userStats.currentStreak++;
+            userStats.bestStreak = Math.max(userStats.currentStreak, userStats.bestStreak);
+        } else {
+            userStats.currentStreak = 0;
+        }
+        Storage.setUserStats(userStats);
+    }
+
+    /**
      * @event (onKeyPress) from Keyboard
      * @param {char} key
      */
@@ -177,25 +206,4 @@ export default class PokemonGuesser extends React.Component {
             this.setState({ isGuessWon: true });
         }
     }
-
-    /**
-     * Save user game data after game end
-     */
-    saveGame() {
-        let userStats = Storage.getUserStats();
-        userStats.listGame.push({
-            date: this.state.gameDate,
-            isWon: this.state.isGuessWon,
-            lifeCount: this.state.health,
-            letterCount: this.state.listSubmitLetter.length
-        });
-        if (this.state.isGuessWon) {
-            userStats.currentStreak++;
-            userStats.bestStreak = Math.max(userStats.currentStreak, userStats.bestStreak);
-        } else {
-            userStats.currentStreak = 0;
-        }
-        Storage.setUserStats(userStats);
-    }
-
 }

@@ -7,6 +7,7 @@ import "./PokemonHealth.scss";
  * @property {object} pokemon
  * @property {char[]} letters
  * @property {char} onMiss
+ * @property {char} onHit
  * @property {object} onDiscovered
  */
 export default class PokemonHealth extends React.Component {
@@ -60,6 +61,9 @@ export default class PokemonHealth extends React.Component {
         const listMissLetter = listNewLetter.filter(ltr => !pokemon.name.toUpperCase().includes(ltr.toUpperCase()));
         if (listMissLetter.length > 0) {
             this.props.onMiss(listMissLetter);
+        }
+        if (listMissLetter.length < listNewLetter.length) {
+            this.props.onHit(listNewLetter.filter(letter => !listMissLetter.includes(letter)));
         }
         return listMissLetter.length > 0;
     }

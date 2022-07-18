@@ -1,8 +1,8 @@
 import React from "react";
-import Storage from "../../services/Storage.service";
+import Storage from "../../../../services/Storage.service";
 import { Button } from "react-bootstrap";
 import "./PlayerKeyboard.scss"
-import APP_CONFIG from "../../../config/config";
+import APP_CONFIG from "../../../../../config/config";
 
 /**
  * @class Keyboard

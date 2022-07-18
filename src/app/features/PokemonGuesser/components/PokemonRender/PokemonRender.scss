@@ -1,0 +1,48 @@
+.Pokemon-panel {
+    position: relative;
+    background-color: white;
+    border: none;
+    border-radius: 2rem;
+    padding: 2rem;
+    height: 15rem;
+    min-height: 15rem;
+    width: 15rem;
+    min-width: 15rem;
+}
+
+.Pokemon-image {
+    position: absolute;
+    min-width: 80%;
+    width: 80%;
+    min-height: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+    user-select: none;
+}
+
+.Pokemon-image.hit {
+    animation: 0.35s linear 0s infinite pokemonHitAnimation;
+}
+
+.Pokemon-image.miss {
+    animation: 0.3s linear pokemonMissAnimation;
+}
+
+.Pokemon-image.Mysterious {
+    filter: contrast(0) opacity(1) brightness(0);
+}
+
+@keyframes pokemonHitAnimation {
+    0% { opacity: 1; }
+    1% { opacity: 0; }
+    50% { opacity: 0; }
+    51% { opacity: 1; }
+    100% { opacity: 1; }
+}
+
+@keyframes pokemonMissAnimation {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(20%); }
+    100% { transform: translateX(0); }
+}

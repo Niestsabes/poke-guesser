@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
-import ValueGauge from "../ValueGauge/ValueGauge";
+import ValueGauge from "../../ValueGauge/ValueGauge";
 import "./StatisticModal.scss";
-import Storage from "../../services/Storage.service";
-import APP_CONFIG from "../../../config/config";
+import Storage from "../../../services/Storage.service";
+import APP_CONFIG from "../../../../config/config";
 
 /**
  * @class StatisticModal

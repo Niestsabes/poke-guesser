@@ -80,7 +80,6 @@ export default class PokemonGuesser extends React.Component {
     }
     
     componentDidMount() {
-        console.log(this.state);
         if (!this.mounted) {
             this.mounted = true;
             this.loadCurrentGameData(DateHelper.getTodayStamp());

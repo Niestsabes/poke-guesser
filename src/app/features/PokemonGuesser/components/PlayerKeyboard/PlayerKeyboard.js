@@ -1,8 +1,8 @@
 import React from "react";
-import Storage from "../../../../services/Storage.service";
 import { Button } from "react-bootstrap";
-import "./PlayerKeyboard.scss"
 import APP_CONFIG from "../../../../../config/config";
+import Storage from "../../../../services/Storage.service";
+import "./PlayerKeyboard.scss"
 
 /**
  * @class Keyboard
@@ -16,8 +16,9 @@ export default class PlayerKeyboard extends React.Component {
         super(props);
         this.state = { keyboard: this.getKeyboardTable(Storage.getUserConfig().keyboard) };
         this.handleKeyPressed = this.handleKeyPressed.bind(this);
-        this.handleSubmit = this.handleKeyPressed.bind(this);
-        this.handleDelete = this.handleKeyPressed.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleKeyboardInput = this.handleKeyboardInput.bind(this);
     }
     
     render() {
@@ -31,10 +32,12 @@ export default class PlayerKeyboard extends React.Component {
             'userConfig', 'playerKeyboard',
             () => this.setState({ keyboard: this.getKeyboardTable(Storage.getUserConfig().keyboard) })
         );
+        window.addEventListener('keyup', this.handleKeyboardInput);
     }
 
     componentWillUnmount() {
         Storage.removeListener('userConfig', 'playerKeyboard');
+        window.removeEventListener('keyup', this.handleKeyboardInput);
     }
 
     /**
@@ -80,6 +83,7 @@ export default class PlayerKeyboard extends React.Component {
     }
 
     /**
+     * Sumbit proposition of letter from the user
      * @event (click) on keyboard letter
      * @emits (onKeyPress)
      */
@@ -87,6 +91,18 @@ export default class PlayerKeyboard extends React.Component {
         this.props.onKeyPress(keyValue);
     }
 
+    /**
+     * Submit proposition of letter from the user, if the pressed key is valid
+     * @event (keyup) on user physical keyboard
+     * @param {*} event 
+     */
+    handleKeyboardInput(event) {
+        const keyCheck = new RegExp(/^[a-z]{1}$/g);
+        if (event?.key.match(keyCheck)) {
+            this.handleKeyPressed(event.key.toUpperCase());
+        };
+    }
+  
     /**
      * @event (click) on submit key
      */
@@ -97,6 +113,11 @@ export default class PlayerKeyboard extends React.Component {
      */
     handleDelete() {}
 
+    /**
+     * Read user's keyboard table name from user config
+     * @param {*} keyboardName 
+     * @returns 
+     */
     getKeyboardTable(keyboardName) {
         return APP_CONFIG.keyboard[keyboardName];
     }

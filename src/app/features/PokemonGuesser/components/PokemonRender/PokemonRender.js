@@ -26,7 +26,7 @@ export default class PokemonRender extends React.Component {
                     "hit": this.state.isTakingDamage,
                     "miss": this.state.isDodging
                 })}
-                src={this.state.pokemon ? this.state.pokemon.sprites.front_default : ''}
+                src={this.state.pokemon ? this.state.pokemon.image : ''}
                 alt="Mysterious Pokémon"
                 draggable="false">
             </img>

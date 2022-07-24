@@ -130,14 +130,13 @@ export default class PokemonGuesser extends React.Component {
             };
             Storage.setCurrentGame(game);
         }
-        PokeApi.getPokemon(game.pokeId).then( poke => {
-            this.setState({
-                gameDate: game.date,
-                currentPokemon: poke,
-                listSubmitLetter: game.playedLetters,
-                health: APP_CONFIG.game.maxLife,
-                isGameSaved: game.isCompleted
-            });
+        const poke = PokeApi.getPokemon(game.pokeId);
+        this.setState({
+            gameDate: game.date,
+            currentPokemon: poke,
+            listSubmitLetter: game.playedLetters,
+            health: APP_CONFIG.game.maxLife,
+            isGameSaved: game.isCompleted
         });
     }
 

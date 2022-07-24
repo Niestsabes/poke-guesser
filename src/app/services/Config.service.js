@@ -2,7 +2,7 @@ import APP_CONFIG from "../../config/config";
 
 function SettingService() {
     this.dicoListeners = {};
-    this.keyboardName = APP_CONFIG.defaultKeyboard;
+    this.keyboardName = APP_CONFIG.configDefault.keyboard;
 }
 
 /**

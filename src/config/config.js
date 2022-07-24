@@ -15,7 +15,6 @@ const APP_CONFIG = {
             pokemon: 'https://twitter.com/Pokemon'
         }
     },
-    defaultKeyboard: 'qwerty',
     configDefault: {
         keyboard: 'qwerty'
     },
@@ -43,7 +42,7 @@ const APP_CONFIG = {
     },
     game: {
         maxLife: 5,
-        maxPokeId: 905
+        maxPokeId: 899
     }
 }
 

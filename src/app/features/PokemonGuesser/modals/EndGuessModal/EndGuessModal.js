@@ -42,7 +42,7 @@ export default class EndGuessModal extends React.Component {
                 <h3 className="modal-subtitle">Summary{this.renderPokemonName(this.props.pokemon)}</h3>
                 <div className="summary-table-wrapper">
                     <img className="summary-table-image"
-                        src={this.props.pokemon ? this.props.pokemon.sprites.front_default : ''}
+                        src={this.props.pokemon ? this.props.pokemon.image : ''}
                         alt="Pokemon">
                     </img>
                     <table>

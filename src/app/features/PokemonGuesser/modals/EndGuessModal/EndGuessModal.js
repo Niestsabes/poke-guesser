@@ -1,4 +1,5 @@
 import React from "react";
+import { Trans as T } from 'react-i18next';
 import APP_CONFIG from "../../../../../config/config";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
 import "./EndGuessModal.scss";
@@ -15,7 +16,7 @@ export default class EndGuessModal extends React.Component {
         super(props);
         this.state = {
             isModalOpen: true,
-            shareBtnText: 'Share'
+            shareBtnText: <T i18nKey="share">Share</T>
         };
     }
 
@@ -25,7 +26,7 @@ export default class EndGuessModal extends React.Component {
             centered>
             <ModalHeader>
                 <h2 className="modal-title" id="#end-game-modal-title">
-                    {this.props.isGameWon ? 'You Win!' : 'You Lose...'}
+                    {this.props.isGameWon ? <T i18nKey="youWin">You Win!</T> : <T i18nKey="youLose">You Lose...</T>}
                 </h2>
                 <Button type="button" variant="secondary"aria-label="Close" className="btn-icon mx-0"
                     onClick={() => this.setState({ isModalOpen: false })}>
@@ -35,11 +36,11 @@ export default class EndGuessModal extends React.Component {
             <ModalBody> 
                 <p>
                     {this.props.isGameWon ? 
-                        'Congratulations, you have caught this Pokémon!' :
-                        'Oh no, the Pokemon ran away!'}<br/>
-                    Come back tomorrow to discover a new wild Pokémon.
+                        <T i18nKey="youWin2">Congratulations, you have caught this Pokémon!</T> :
+                        <T i18nKey="youLose2">Oh no, the Pokemon ran away!</T>}<br/>
+                    <T i18nKey="comeBack">Come back tomorrow to discover a new wild Pokémon.</T>
                 </p>
-                <h3 className="modal-subtitle">Summary{this.renderPokemonName(this.props.pokemon)}</h3>
+                <h3 className="modal-subtitle"><T i18nKey="summary">Summary</T>{this.renderPokemonName(this.props.pokemon)}</h3>
                 <div className="summary-table-wrapper">
                     <img className="summary-table-image"
                         src={this.props.pokemon ? this.props.pokemon.image : ''}
@@ -54,7 +55,7 @@ export default class EndGuessModal extends React.Component {
                     <a href={APP_CONFIG.extUrl.pokedex + this.props.pokemon.name} target="_blank" rel="noreferrer">
                         <Button className="btn-secondary" type="button" aria-label="View pokemon in pokedex">
                             <span className="icon-search-solid mx-1"></span>
-                            <span className="mx-1">View in Pokedex</span>
+                            <span className="mx-1"><T i18nKey="viewPokedex">View in Pokedex</T></span>
                         </Button>
                     </a>
                     <Button type="button" aria-label="Share game summary"
@@ -128,8 +129,8 @@ export default class EndGuessModal extends React.Component {
             const url = `${process.env.REACT_APP_URL}`;
             navigator.clipboard.writeText([title, mgs, attempts, url].join('\n'));
 
-            this.setState({ shareBtnText: 'Copied!' });
-            setTimeout(() => { this.setState({ shareBtnText: 'Share' }); }, 7000);
+            this.setState({ shareBtnText: <T i18nKey="copied">Copied!</T> });
+            setTimeout(() => { this.setState({ shareBtnText: <T i18nKey="share">Share</T> }); }, 7000);
         }
         else {
             throw new Error('Cannot copy summary to clipboard has pokemon of letters have not been provided.')

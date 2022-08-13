@@ -1,5 +1,5 @@
 import './App.css';
-import AppHeader from './app/components/AppHeader/AppHeader';
+import AppHeader from './app/features/Header/AppHeader';
 import AppFooter from './app/components/AppFooter/AppFooter';
 import PokemonGuesser from './app/features/PokemonGuesser/PokemonGuesser';
 

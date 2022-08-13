@@ -18,8 +18,9 @@ export default class PokemonHealth extends React.Component {
     }
 
     render() {
-        return <article className="Pokemon-name px-2" aria-label={`Pokemon name: try it`}>
+        return <article className="pokemon-name px-2" aria-label={`Pokemon name: try it`}>
             <strong>{this.renderPokemonName(this.props.pokemon)}</strong>
+            <span className="pokemon-language">({this.props.pokemon?.language})</span>
         </article>
     }
 
@@ -41,7 +42,7 @@ export default class PokemonHealth extends React.Component {
         let render = '';
         if (pokemon && pokemon.name) {
             const joinLetter = this.props.letters.join('');
-            const regexp = new RegExp('[^' + joinLetter.toUpperCase() + joinLetter.toLowerCase() + ']', 'g');
+            const regexp = new RegExp('[^-' + joinLetter.toUpperCase() + joinLetter.toLowerCase() + ']', 'g');
             render = pokemon.name.replace(regexp, '_ ').trim().replace(/' '/g, '\u00A0');
         }
         return render;

@@ -2,10 +2,6 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import APP_CONFIG from "../../../config/config";
 import PokemonGuesser from "./PokemonGuesser";
 
-test('renders PokemonGuesser component', () => {
-    render(<PokemonGuesser/>);
-});
-  
 test(`generates a valid pokemonId, which must be between 1 and ${APP_CONFIG.game.maxPokeId}`, () => {
     const instance = new PokemonGuesser();
     const firstDateStamp = 19000;

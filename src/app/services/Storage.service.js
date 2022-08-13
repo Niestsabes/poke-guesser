@@ -38,17 +38,37 @@ LocalStorageService.prototype.clearCurrentGame = function() {
 // User config
 
 LocalStorageService.prototype.getUserConfig = function() {
-    let userConfig = JSON.parse(localStorage.getItem('userConfig'));
-    if (!userConfig) {
-        userConfig = { keyboard: APP_CONFIG.configDefault.keyboard };
-        this.setUserConfig(userConfig);
+    let config = { 
+        keyboard: getDefaultKeyboard(),
+        language: getDefaultLanguage()
+    };
+    const localConfig = JSON.parse(localStorage.getItem('userConfig'));
+    if (localConfig) {
+        for(let configKey of Object.keys(localConfig)) { config[configKey] = localConfig[configKey]; }
     }
-    return userConfig;
+    this.setUserConfig(config, true);
+    return config;
 }
 
-LocalStorageService.prototype.setUserConfig = function(userConfig) {
+LocalStorageService.prototype.setUserConfig = function(userConfig, silent = false) {
     localStorage.setItem('userConfig', JSON.stringify(userConfig));
-    this.invoke('userConfig');
+    if (!silent) { this.invoke('userConfig'); }
+}
+
+const getDefaultKeyboard = function() {
+    const navLang = window.navigator.language.slice(0, 2);
+    if (Object.keys(APP_CONFIG.listAvailableLanguage).includes(navLang)) {
+        return APP_CONFIG.listAvailableLanguage[navLang].keyboard;
+    }
+    return APP_CONFIG.configDefault.keyboard;
+}
+
+const getDefaultLanguage = function() {
+    const navLang = window.navigator.language.slice(0, 2);
+    if (Object.keys(APP_CONFIG.listAvailableLanguage).includes(navLang)) {
+        return navLang;
+    }
+    return APP_CONFIG.configDefault.language;
 }
 
 // Events

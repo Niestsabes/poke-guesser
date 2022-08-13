@@ -16,7 +16,8 @@ const APP_CONFIG = {
         }
     },
     configDefault: {
-        keyboard: 'qwerty'
+        keyboard: 'qwerty',
+        language: 'en'
     },
     keyboard: {
         azerty: [
@@ -39,6 +40,13 @@ const APP_CONFIG = {
             ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
             ['Enter', 'Y', 'X', 'C', 'V', 'B', 'N', 'M', 'Back']
         ]
+    },
+    listAvailableLanguage: {
+        de: { name: "Deutsch", keyboard: 'azerty' },
+        en: { name: "English", keyboard: 'qwerty' },
+        es: { name: "Español", keyboard: 'azerty' },
+        fr: { name: "Français", keyboard: 'azerty' },
+        it: { name: "Italiano", keyboard: 'azerty' }
     },
     game: {
         maxLife: 5,

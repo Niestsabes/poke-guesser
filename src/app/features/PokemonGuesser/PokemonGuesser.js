@@ -103,8 +103,8 @@ export default class PokemonGuesser extends React.Component {
     getPokemonId(dateStamp) {
         const gameId = dateStamp % APP_CONFIG.game.maxPokeId;
         let pokeId = 1;
-        const n = parseInt(process.env.REACT_APP_GAME_CONFIG_ENCRYPT_FACTOR, 10);
-        const e = parseInt(process.env.REACT_APP_GAME_CONFIG_ENCRYPT_MODULE, 10);
+        const n = parseInt(process.env.REACT_APP_GAME_CONFIG_ENCRYPT_MODULE, 10);
+        const e = parseInt(process.env.REACT_APP_GAME_CONFIG_ENCRYPT_FACTOR, 10);
         for (let i = 1; i < gameId; i++) {
             pokeId *= e;
             pokeId %= n;
@@ -121,21 +121,24 @@ export default class PokemonGuesser extends React.Component {
     loadCurrentGameData(dateStamp) {
         const dateString = DateHelper.getStringFromStamp(dateStamp);
         let game = Storage.getCurrentGame();
+        let config = Storage.getUserConfig();
         if (!game || game.date !== dateString) {
             game = {
                 date: dateString,
                 pokeId: this.getPokemonId(dateStamp),
                 playedLetters: [],
+                language: config.language,
                 isCompleted: false
             };
             Storage.setCurrentGame(game);
         }
-        const poke = PokeApi.getPokemon(game.pokeId);
+        const poke = PokeApi.getPokemon(game.pokeId, game.language || config.language);
         this.setState({
             gameDate: game.date,
             currentPokemon: poke,
             listSubmitLetter: game.playedLetters,
             health: APP_CONFIG.game.maxLife,
+            language: game.language || config.language,
             isGameSaved: game.isCompleted
         });
     }
@@ -148,6 +151,7 @@ export default class PokemonGuesser extends React.Component {
             date: this.state.gameDate,
             pokeId: this.state.currentPokemon.id,
             playedLetters: this.state.listSubmitLetter,
+            language: this.state.language,
             isCompleted: this.state.isGuessWon || this.state.isGuessLost
         });
     }

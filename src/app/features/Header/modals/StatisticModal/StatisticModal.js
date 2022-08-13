@@ -1,9 +1,10 @@
 import React from "react";
 import { Button, Modal, ModalHeader, ModalBody } from "react-bootstrap";
-import ValueGauge from "../../ValueGauge/ValueGauge";
+import { Translation as T } from 'react-i18next';
+import ValueGauge from "../../../../components/ValueGauge/ValueGauge";
+import Storage from "../../../../services/Storage.service";
+import APP_CONFIG from "../../../../../config/config";
 import "./StatisticModal.scss";
-import Storage from "../../../services/Storage.service";
-import APP_CONFIG from "../../../../config/config";
 
 /**
  * @class StatisticModal
@@ -22,7 +23,9 @@ export default class StatisticModal extends React.Component {
             aria-labelledby="statistic-modal-title"
             centered>
             <ModalHeader>
-                <h2 className="modal-title" id="statistic-modal-title">Statistics</h2>
+                <h2 className="modal-title" id="statistic-modal-title">
+                    <T>{ t => t('statistics') }</T>
+                </h2>
                 <Button type="button" variant="secondary" aria-label="Close" className="btn-icon mx-0"
                     onClick={() => this.setState({ isModalOpen: false })}>
                     <span aria-hidden="true" className="icon-times"></span>
@@ -32,26 +35,26 @@ export default class StatisticModal extends React.Component {
                 <article id="figure-section" className="statistic-figure-wrapper">
                     <div className="statistic-figure-line">
                         <div className="statistic-figure">
-                            <label className="statistic-figure-label">Games</label>
+                            <label className="statistic-figure-label"><T>{ t => t('games') }</T></label>
                             <var className="statistic-figure-value">{this.state.userStats.listGame.length}</var>
                         </div>
                         <div className="statistic-figure">
-                            <label className="statistic-figure-label">Win Rate</label>
+                            <label className="statistic-figure-label"><T>{ t => t('winRate') }</T></label>
                             <var className="statistic-figure-value">{this.computeWinRatio()}</var>
                         </div>
                     </div>
                     <div className="statistic-figure-line">
                         <div className="statistic-figure">
-                            <label className="statistic-figure-label">Win Streck</label>
+                            <label className="statistic-figure-label"><T>{ t => t('winStreck') }</T></label>
                             <var className="statistic-figure-value">{this.state.userStats.currentStreak}</var>
                         </div>
                         <div className="statistic-figure">
-                            <label className="statistic-figure-label">Best Streck</label>
+                            <label className="statistic-figure-label"><T>{ t => t('bestStreck') }</T></label>
                             <var className="statistic-figure-value">{this.state.userStats.bestStreak}</var>
                         </div>
                     </div>
                 </article>
-                <h3 className="modal-subtitle">Performances</h3>
+                <h3 className="modal-subtitle"><T>{ t => t('performances') }</T></h3>
                 <article id="performance-section" className="statistic-performance-wrapper">
                     {this.renderPerformance()}
                 </article>
